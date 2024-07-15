@@ -17,7 +17,7 @@ resource "aws_subnet" "public_subnet1" {
   cidr_block        = var.subnet1_cidr
   availability_zone = "ap-south-1a"
   tags = {
-    "name" = format("%s-public-subnet-1", var.prefix)
+    Name = format("%s-public-subnet-1", var.prefix)
   }
 }
 resource "aws_subnet" "public_subnet2" {
@@ -25,41 +25,41 @@ resource "aws_subnet" "public_subnet2" {
   cidr_block        = var.subnet2_cidr
   availability_zone = "ap-south-1b"
   tags = {
-    "name" = format("%s-public-subnet-2", var.prefix)
+    Name = format("%s-public-subnet-2", var.prefix)
   }
 }
 
-resource "aws_subnet" "public_subnet3" {
+resource "aws_subnet" "private_subnet1" {
   vpc_id            = aws_vpc.vpc.id
   cidr_block        = var.subnet3_cidr
-  availability_zone = "ap-south-1b"
+  availability_zone = "ap-south-1a"
   tags = {
-    "name" = format("%s-public-subnet-3", var.prefix)
+    Name = format("%s-private-subnet-3", var.prefix)
   }
 }
 
-resource "aws_subnet" "public_subnet4" {
+resource "aws_subnet" "private_subnet2" {
   vpc_id            = aws_vpc.vpc.id
   cidr_block        = var.subnet4_cidr
   availability_zone = "ap-south-1b"
   tags = {
-    "name" = format("%s-public-subnet-4", var.prefix)
+    Name = format("%s-private-subnet-4", var.prefix)
   }
 }
 
-resource "aws_subnet" "public_subnet5" {
+resource "aws_subnet" "secure_subnet1" {
   vpc_id            = aws_vpc.vpc.id
   cidr_block        = var.subnet5_cidr
-  availability_zone = "ap-south-1b"
+  availability_zone = "ap-south-1a"
   tags = {
-    "name" = format("%s-public-subnet-5", var.prefix)
+    Name = format("%s-secure-subnet-5", var.prefix)
   }
 }
-resource "aws_subnet" "public_subnet6" {
+resource "aws_subnet" "secure_subnet2" {
   vpc_id            = aws_vpc.vpc.id
   cidr_block        = var.subnet6_cidr
   availability_zone = "ap-south-1b"
   tags = {
-    "name" = format("%s-public-subnet-6", var.prefix)
+    Name = format("%s-secure-subnet-6", var.prefix)
   }
 }
