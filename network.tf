@@ -14,29 +14,22 @@ resource "aws_nat_gateway" "nat_gateway" {
 }
 
 resource "aws_subnet" "public_subnet" {
-  count      = 2
-  vpc_id     = aws_vpc.vpc.id
-  cidr_block = cidrsubnet(var.public_subnet_cidr, 4, count.index)
+  count             = 2
+  vpc_id            = aws_vpc.vpc.id
+  availability_zone = "ap-south-1a"
+  cidr_block        = cidrsubnet(var.public_subnet_cidr, 4, count.index)
   tags = {
     Name = format("%s-public-subnet-%s", var.prefix, count.index + 1)
   }
 }
 
-resource "aws_subnet" "private_subnet1" {
+resource "aws_subnet" "private_subnet" {
+  count             = 2
   vpc_id            = aws_vpc.vpc.id
-  cidr_block        = var.subnet3_cidr
+  cidr_block        = cidrsubnet(var.private_subnet_cidr, 4, count.index + 2)
   availability_zone = "ap-south-1a"
   tags = {
-    Name = format("%s-private-subnet-3", var.prefix)
-  }
-}
-
-resource "aws_subnet" "private_subnet2" {
-  vpc_id            = aws_vpc.vpc.id
-  cidr_block        = var.subnet4_cidr
-  availability_zone = "ap-south-1b"
-  tags = {
-    Name = format("%s-private-subnet-4", var.prefix)
+    Name = format("%s-private-subnet-%s", var.prefix, count.index + 3)
   }
 }
 
@@ -48,6 +41,7 @@ resource "aws_subnet" "secure_subnet1" {
     Name = format("%s-secure-subnet-5", var.prefix)
   }
 }
+
 resource "aws_subnet" "secure_subnet2" {
   vpc_id            = aws_vpc.vpc.id
   cidr_block        = var.subnet6_cidr
@@ -89,12 +83,12 @@ resource "aws_route_table_association" "rt_public_subnet" {
 
 resource "aws_route_table_association" "rt_private_subnet1" {
   route_table_id = aws_route_table.private_route_table.id
-  subnet_id      = aws_subnet.private_subnet1.id
+  subnet_id      = aws_subnet.private_subnet[0].id
 }
 
 resource "aws_route_table_association" "rt_private_subnet2" {
   route_table_id = aws_route_table.private_route_table.id
-  subnet_id      = aws_subnet.private_subnet2.id
+  subnet_id      = aws_subnet.private_subnet[1].id
 }
 
 resource "aws_subnet" "secure_subnet_4" {
