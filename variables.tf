@@ -16,32 +16,7 @@ variable "prefix" {
   description = "vpc-tag"
 }
 
-variable "public_subnet_cidr" {
+variable "subnet_cidr" {
   type        = string
   description = "public subnet cidr"
-}
-
-variable "private_subnet_cidr" {
-  type        = string
-  description = "private subnet cidr"
-}
-
-variable "subnet3_cidr" {
-  type        = string
-  description = "subnet3_cidr"
-}
-
-variable "subnet4_cidr" {
-  type        = string
-  description = "subnet4_cidr"
-}
-
-variable "subnet5_cidr" {
-  type        = string
-  description = "subnet5_cidr"
-}
-
-variable "subnet6_cidr" {
-  type        = string
-  description = "subnet6_cidr"
 }
