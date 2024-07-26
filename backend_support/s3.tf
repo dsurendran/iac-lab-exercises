@@ -1,6 +1,9 @@
 resource "aws_s3_bucket" "s3_terraform_state" {
   bucket        = format("%s-tfstate", var.prefix)
   force_destroy = true
+  lifecycle {
+    prevent_destroy = true
+  }
   tags = {
     Name = format("%s-tfstate", var.prefix)
   }
