@@ -81,12 +81,3 @@ resource "aws_route_table_association" "rt_private_subnet2" {
   route_table_id = aws_route_table.private_route_table.id
   subnet_id      = aws_subnet.private_subnet[1].id
 }
-
-resource "aws_subnet" "secure_subnet_4" {
-  vpc_id            = aws_vpc.vpc.id
-  cidr_block        = "192.168.1.96/28"
-  availability_zone = "ap-south-1b"
-  tags = {
-    Name = "dsuren-subnet-from-console"
-  }
-}
