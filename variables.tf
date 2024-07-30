@@ -16,6 +16,16 @@ variable "prefix" {
   description = "vpc-tag"
 }
 
+variable "prefix-lb" {
+  type        = string
+  description = "load balancer prefix"
+}
+
+variable "prefix-tg" {
+  type        = string
+  description = "target group prefix"
+}
+
 variable "subnet_cidr" {
   type        = string
   description = "public subnet cidr"
