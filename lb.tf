@@ -2,7 +2,7 @@ resource "aws_lb" "lb" {
   load_balancer_type = "application"
   internal           = false
   security_groups    = [aws_security_group.lb_sg.id]
-  subnets            = [for subnet in aws_subnet.public_subnet : subnet.id]
+  subnets            = [for subnet in module.vpc.public_subnets : subnet]
   name               = var.prefix-lb
   tags = {
     Name = var.prefix-lb
@@ -12,7 +12,7 @@ resource "aws_lb" "lb" {
 resource "aws_lb_target_group" "tg" {
   port        = 8080
   protocol    = "HTTP"
-  vpc_id      = aws_vpc.vpc.id
+  vpc_id      = module.vpc.vpc_id
   target_type = "ip"
   health_check {
     healthy_threshold   = "5"
@@ -39,7 +39,7 @@ resource "aws_lb_listener" "lb_listener" {
 
 resource "aws_security_group" "lb_sg" {
   description = "security group for load balancer"
-  vpc_id      = aws_vpc.vpc.id
+  vpc_id      = module.vpc.vpc_id
   ingress {
     description      = "allow anyone externally to reach the load balancer on web port"
     from_port        = 80

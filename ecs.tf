@@ -35,7 +35,7 @@ resource "aws_ecs_service" "this" {
 
   network_configuration {
     security_groups  = [aws_security_group.ecs.id]
-    subnets          = [aws_subnet.private_subnet[0].id, aws_subnet.private_subnet[1].id]
+    subnets          = [for subnet in module.vpc.private_subnets : subnet]
     assign_public_ip = false
   }
 
@@ -72,7 +72,7 @@ resource "aws_ecs_task_definition" "this" {
 
 resource "aws_security_group" "ecs" {
   name   = format("%s-ecs-sg", var.prefix)
-  vpc_id = aws_vpc.vpc.id
+  vpc_id = module.vpc.vpc_id
 
   ingress {
     description     = "Allow ALB access to ECS on port 8000"
