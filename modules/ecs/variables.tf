@@ -28,3 +28,28 @@ variable "alb_security_group_id" {
   type        = list(any)
   description = "lb security group ids"
 }
+
+variable "db_address" {
+  type        = string
+  description = "host name of database"
+}
+
+variable "db_name" {
+  type        = string
+  description = "name of database"
+}
+
+variable "db_username" {
+  type        = string
+  description = "database user name"
+}
+
+variable "db_secret_arn" {
+  type        = string
+  description = "database secret arn"
+}
+
+variable "db_secret_key_id" {
+  type        = string
+  description = "db_secret_key_id"
+}
