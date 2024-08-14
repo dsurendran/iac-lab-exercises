@@ -30,7 +30,7 @@ resource "aws_db_parameter_group" "pg" {
 }
 
 data "aws_secretsmanager_secret" "db" {
-  name = "dev/dbdsuren"
+  name = "db/dsuren"
 }
 
 data "aws_secretsmanager_secret_version" "db" {
