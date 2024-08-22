@@ -8,3 +8,8 @@ variable "prefix" {
   type        = string
   description = "s3 prefix"
 }
+
+variable "repo_name" {
+  type        = string
+  description = "git repository name"
+}
