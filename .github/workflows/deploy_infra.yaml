@@ -37,12 +37,6 @@ jobs:
       - name: Get aws identity
         run: |
           aws sts get-caller-identity
-
-  # Can add extra steps to run Terraform to create the AWS resources
-  init:
-    name: Terraform Init
-    runs-on: ubuntu-latest
-    steps:
       - name: Install terraform
         uses: hashicorp/setup-terraform@v3
       - name: Checkout
@@ -51,3 +45,9 @@ jobs:
         run: terraform init
       - name: Terraform Apply
         run: terraform apply --auto-approve -var-file=dev.tfvars
+
+  # # Can add extra steps to run Terraform to create the AWS resources
+  # init:
+  #   name: Terraform Init
+  #   runs-on: ubuntu-latest
+  #   steps:
