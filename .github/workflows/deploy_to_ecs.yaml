@@ -4,7 +4,7 @@ on: workflow_dispatch
 
 env:
   AWS_REGION: ap-south-1
-  ECR_REPOSITORY: iac
+  ECR_REPOSITORY: api
   ECS_SERVICE: dsuren-iac-lab-ecs-service
   ECS_CLUSTER: dsuren-iac-lab-ecs-cluster
   ECS_TASK_DEFINITION: dsuren-iac-lab-ecs-task-definition
