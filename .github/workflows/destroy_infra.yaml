@@ -1,0 +1,34 @@
+name: Destroy infra
+
+on: workflow_dispatch
+
+env:
+  AWS_REGION: ap-south-1
+  IAM_ROLE: arn:aws:iam::160071257600:role/dsuren-iac-lab-github-actions-role
+  PREFIX: dsuren-iac-lab
+  PREFIX-LB: dsuren-iac-lab-lb
+  PREFIX-TG: dsuren-iac-lab-tg
+  VPC_CIDR: 192.168.1.0/25
+  SUBNET_CIDR: 192.168.1.0/24
+  DB_USERNAME: dsurendran
+  DB_NAME: pgdb
+
+jobs:
+  deploy:
+    name: Terraform destroy
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@2ec54502e3e7b5d9591613811da6daded35caa19
+        with:
+          role-session-name: GitHubActionsSession
+          role-to-assume: ${{ env.IAM_ROLE }}
+          aws-region: ${{ env.AWS_REGION }}
+      - name: Install terraform
+        uses: hashicorp/setup-terraform@v3
+      - name: Terraform Destroy
+        run: terraform destroy --auto-approve -var-file=dev.tfvars
