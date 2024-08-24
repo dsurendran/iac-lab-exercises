@@ -28,6 +28,8 @@ jobs:
           role-session-name: GitHubActionsSession
           role-to-assume: ${{ env.IAM_ROLE }}
           aws-region: ${{ env.AWS_REGION }}
+      - name: Checkout
+        uses: actions/checkout@v3
       - name: Install terraform
         uses: hashicorp/setup-terraform@v3
       - name: Terraform Destroy
