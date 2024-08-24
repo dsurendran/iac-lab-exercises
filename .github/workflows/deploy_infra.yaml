@@ -5,6 +5,13 @@ on: push
 env:
   AWS_REGION: ap-south-1
   IAM_ROLE: arn:aws:iam::160071257600:role/dsuren-iac-lab-github-actions-role
+  PREFIX: dsuren-iac-lab
+  PREFIX-LB: dsuren-iac-lab-lb
+  PREFIX-TG: dsuren-iac-lab-tg
+  VPC_CIDR: 192.168.1.0/25
+  SUBNET_CIDR: 192.168.1.0/24
+  DB_USERNAME: dsurendran
+  DB_NAME: pgdb
 
 jobs:
   # Can add extra jobs/steps to run any pre deploy tasks
@@ -31,4 +38,23 @@ jobs:
         run: |
           aws sts get-caller-identity
 
-    # Can add extra steps to run Terraform to create the AWS resources
+  # Can add extra steps to run Terraform to create the AWS resources
+  init:
+    name: Terraform Init
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install terraform
+        uses: hashicorp/setup-terraform@v3
+      - name: Terraform Init and Apply
+        run: |
+          terraform init
+          terraform apply --auto-approve
+        with:
+          region: $$ {{ env.AWS_REGION }}
+          prefix: $$ {{ env.PREFIX}}
+          prefix-lb: $$ {{ env.PREFIX-LB }}
+          prefix-tg: $$ {{ env.PREFIX-TG }}
+          vpc_cidr: $$ {{ env.VPC_CIDR }}
+          subnet_cidr: $$ {{ env.SUBNET_CIDR }}
+          db_username: $$ {{ env.DB_USERNAME }}
+          db_name: $$ {{ env.DB_NAME }}
