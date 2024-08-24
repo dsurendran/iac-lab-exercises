@@ -26,7 +26,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@2ec54502e3e7b5d9591613811da6daded35caa19
         with:
@@ -41,6 +40,16 @@ jobs:
         uses: hashicorp/setup-terraform@v3
       - name: Checkout
         uses: actions/checkout@v3
+      - name: Terraform Lint
+        uses: actions/terraform-lint@main
+        continue-on-error: true
+      - name: tfsec
+        uses: aquasecurity/tfsec-action@v1.0.0
+        with:
+          soft_fail: true
+      - name: Terraform fmt
+        run: terraform fmt -check
+        continue-on-error: true
       - name: Terraform Init
         run: terraform init
       - name: Terraform Apply
