@@ -41,7 +41,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Terraform Lint
-        uses: actions/terraform-lint@main
+        uses: actionshub/terraform-lint@main
         continue-on-error: true
       - name: tfsec
         uses: aquasecurity/tfsec-action@v1.0.0
